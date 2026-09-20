@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySocial</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <img src="icons/icon48.png" alt="StudySocial" width="26" height="26">
+        </div>
+        <div class="brand-text">
+          <h1>StudySocial</h1>
+          <span class="tagline">Positive Social Media</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggleBtn" class="icon-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button id="openDashboardBtn" class="icon-btn" title="Open Full Dashboard" aria-label="Open Dashboard">
+          <span class="open-icon">↗</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="nav-btn active" data-tab="tab-home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-focus">
+        <span class="nav-icon">⏱️</span>
+        <span class="nav-label">Focus</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-goals">
+        <span class="nav-icon">🎯</span>
+        <span class="nav-label">Goals</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-tracker">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Time</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-notes">
+        <span class="nav-icon">📝</span>
+        <span class="nav-label">Notes</span>
+      </button>
+    </nav>
+
+    <!-- Tab Contents Container -->
+    <main class="tab-content-area">
+      <!-- TAB 1: HOME / OVERVIEW -->
+      <section id="tab-home" class="tab-pane active">
+        <!-- Daily Positive Tip Card -->
+        <div class="card card-hero">
+          <div class="card-header-row">
+            <span class="badge badge-purple" id="dailyTipCategory">Daily Positive Tip</span>
+            <button id="nextTipBtn" class="btn-text" title="Next tip">Next ↻</button>
+          </div>
+          <p class="tip-quote" id="dailyTipText">Loading today's positive strategy...</p>
+          <div class="tip-action-box">
+            <span class="action-icon">👉</span>
+            <span class="action-text" id="dailyTipAction">Practice mindful engagement today.</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats Overview -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-indigo-soft">🔥</div>
+            <div class="stat-content">
+              <span class="stat-number" id="streakDisplay">1 Day</span>
+              <span class="stat-desc">Study Streak</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-emerald-soft">🎯</div>
+            <div class="stat-content">
+              <span class="stat-number" id="completedGoalsStat">0/3</span>
+              <span class="stat-desc">Goals Done</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-amber-soft">⏳</div>
+            <div class="stat-content">
+              <span class="stat-number" id="todaySocialTime">0m</span>
+              <span class="stat-desc">Social Time</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap bg-blue-soft">⏱️</div>
+            <div class="stat-content">
+              <span class="stat-number" id="todayFocusTime">0m</span>
+              <span class="stat-desc">Focus Study</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 Positive Pillars Preview -->
+        <div class="section-title-row">
+          <h3>🌟 Positive Impact Pillars</h3>
+          <button id="viewAllPillarsBtn" class="btn-text">Explore All ➔</button>
+        </div>
+        <div class="pillars-preview-list" id="pillarsMiniList">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- TAB 2: STUDY FOCUS MODE -->
+      <section id="tab-focus" class="tab-pane">
+        <div class="card focus-card">
+          <div class="focus-timer-ring">
+            <div class="timer-digits" id="timerClock">25:00</div>
+            <div class="timer-status-text" id="timerStatusLabel">Ready to sprint</div>
+          </div>
+
+          <!-- Active Goal input -->
+          <div class="input-group">
+            <label for="focusGoalInput">What are you studying right now?</label>
+            <input type="text" id="focusGoalInput" placeholder="e.g., 25 mins Python data structures" maxlength="80">
+          </div>
+
+          <!-- Preset Durations -->
+          <div class="duration-selector" id="durationSelector">
+            <button class="duration-chip active" data-mins="25">25 Min</button>
+            <button class="duration-chip" data-mins="45">45 Min</button>
+            <button class="duration-chip" data-mins="60">60 Min</button>
+          </div>
+
+          <!-- Shield toggle -->
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <span class="toggle-title">Distraction Shield</span>
+              <span class="toggle-sub">Gently blocks social scrolling during focus</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="shieldToggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Controls -->
+          <div class="focus-controls">
+            <button id="startFocusBtn" class="btn btn-primary btn-block">🚀 Start Focus Sprint</button>
+            <button id="stopFocusBtn" class="btn btn-danger btn-block hidden">⏹ Stop Focus Session</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: GOALS -->
+      <section id="tab-goals" class="tab-pane">
+        <div class="goals-header-card">
+          <h3>Today's Study Targets</h3>
+          <span class="badge badge-indigo" id="goalsCounterBadge">0 of 3 Completed</span>
+        </div>
+
+        <!-- Add Goal Input -->
+        <form id="addGoalForm" class="add-goal-form">
+          <input type="text" id="newGoalInput" placeholder="Add a new study goal..." required maxlength="70">
+          <select id="newGoalCategory" class="category-select">
+            <option value="Focus">Study</option>
+            <option value="Learning">Learning</option>
+            <option value="Career">Career</option>
+          </select>
+          <button type="submit" class="btn btn-sm btn-primary">Add</button>
+        </form>
+
+        <!-- Goals List -->
+        <ul class="goals-list" id="goalsList">
+          <!-- Populated via JS -->
+        </ul>
+      </section>
+
+      <!-- TAB 4: TIME TRACKER -->
+      <section id="tab-tracker" class="tab-pane">
+        <div class="tracker-card">
+          <div class="tracker-summary-header">
+            <div>
+              <h3>Today's Activity</h3>
+              <p class="text-muted">Active tabs tracked automatically</p>
+            </div>
+            <span class="date-badge" id="trackerDateLabel">Today</span>
+          </div>
+
+          <!-- Visual Bar -->
+          <div class="ratio-bar-container">
+            <div class="ratio-labels">
+              <span>Study Focus: <strong id="ratioFocusLabel">0m</strong></span>
+              <span>Social Media: <strong id="ratioSocialLabel">0m</strong></span>
+            </div>
+            <div class="ratio-bar">
+              <div class="ratio-segment ratio-focus" id="barFocus" style="width: 50%;"></div>
+              <div class="ratio-segment ratio-social" id="barSocial" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <!-- Platform breakdown -->
+          <div class="platform-breakdown-list" id="platformTimeList">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: QUICK NOTES -->
+      <section id="tab-notes" class="tab-pane">
+        <div class="card notes-editor-card">
+          <div class="notes-header-row">
+            <h3>Capture Learning Insight</h3>
+            <button id="captureCurrentPageBtn" class="btn-text btn-text-accent" title="Auto-fill current tab info">
+              + From Current Tab
+            </button>
+          </div>
+          <input type="text" id="noteTitleInput" placeholder="Topic or concept title..." maxlength="70">
+          <textarea id="noteContentInput" placeholder="Write quick notes, definitions, video timestamps, or research ideas..." rows="3"></textarea>
+          <input type="hidden" id="noteUrlInput" value="">
+          <button id="saveNoteBtn" class="btn btn-primary btn-block">💾 Save to Study Notes</button>
+        </div>
+
+        <!-- Saved Notes List -->
+        <div class="saved-notes-list" id="savedNotesList">
+          <!-- Populated via JS -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-status">
+        <span class="status-dot"></span>
+        <span id="extensionStatus">Active & Learning</span>
+      </div>
+      <button id="footerFullDashboardLink" class="footer-link">Full Dashboard & Resources ➔</button>
+    </footer>
+  </div>
+
+  <script src="data/tips.js"></script>
+  <script src="data/resources.js"></script>
+  <script src="data/positiveImpactData.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
