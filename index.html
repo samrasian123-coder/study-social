@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySocial – Positive Social Media for Students</title>
+  <link rel="icon" href="icons/icon48.png" type="image/png">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #1e1b4b 0%, #0f172a 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--surface-border);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 0.75rem;
+      background: rgba(79, 70, 229, 0.25);
+      color: #a5b4fc;
+      border: 1px solid rgba(79, 70, 229, 0.4);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #cbd5e1;
+      border: 1px solid var(--surface-border);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface);
+      color: #ffffff;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+        padding: 2rem 1rem;
+        gap: 2.5rem;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-content h1 span {
+      background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .feature-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .feature-card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Live Preview Section */
+    .preview-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .preview-header {
+      width: 400px;
+      max-width: 100%;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-bottom: none;
+      border-radius: 16px 16px 0 0;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .preview-frame {
+      width: 400px;
+      height: 600px;
+      max-width: 100%;
+      border: 1px solid #334155;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .preview-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .preview-caption {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Installation Steps */
+    .install-box {
+      margin-top: 3rem;
+      max-width: 1200px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    .install-box h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .step-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    footer {
+      border-top: 1px solid var(--surface-border);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="#" class="brand">
+      <img src="icons/icon48.png" alt="StudySocial">
+      <span class="brand-title">StudySocial</span>
+      <span class="brand-badge">Student Edition</span>
+    </a>
+    <div class="header-links">
+      <a href="popup.html" class="btn btn-outline" target="_blank">Open App Full View ↗</a>
+      <a href="https://github.com/samrasian123-coder/study-social" class="btn btn-primary" target="_blank">GitHub Repo</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Left Hero -->
+    <div class="hero-content">
+      <h1>Turn Social Feeds into <span>Productive Study Power</span></h1>
+      <p class="hero-subtitle">
+        StudySocial helps students conquer doom-scrolling, curate educational algorithms, run timed focus sprints, and achieve daily academic goals effortlessly.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">⏱️</div>
+          <h3>Focus Study Sprints</h3>
+          <p>Built-in 25-60 min timer with distraction shield for deep study sessions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🎯</div>
+          <h3>Daily Study Targets</h3>
+          <p>Organize, track, and complete daily academic milestones with real streaks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💡</div>
+          <h3>Algorithm Transformation</h3>
+          <p>Daily actionable strategies to transform feeds into digital classrooms.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📝</div>
+          <h3>Instant Study Notes</h3>
+          <p>Save concepts, video timestamps, and insights directly as you learn.</p>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="popup.html" class="btn btn-primary" style="padding: 12px 24px; font-size: 1rem;">
+          🚀 Try Live Web App
+        </a>
+        <a href="#how-to-install" class="btn btn-outline" style="padding: 12px 20px;">
+          ⬇ How to Install in Chrome
+        </a>
+      </div>
+    </div>
+
+    <!-- Right Live Preview -->
+    <div class="preview-container">
+      <div class="preview-header">
+        <div class="window-dots">
+          <span class="window-dot dot-red"></span>
+          <span class="window-dot dot-yellow"></span>
+          <span class="window-dot dot-green"></span>
+        </div>
+        <span>StudySocial Extension Interactive Preview</span>
+      </div>
+      <div class="preview-frame">
+        <iframe src="popup.html" title="StudySocial Interactive Demo"></iframe>
+      </div>
+      <div class="preview-caption">
+        ⚡ Fully interactive! Try clicking the tabs, timer, and goals above.
+      </div>
+    </div>
+  </main>
+
+  <!-- Installation Steps -->
+  <section class="install-box" id="how-to-install">
+    <h2>How to Load as a Chrome Extension</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h4>Download / Clone Repo</h4>
+        <p>Download the repository as a ZIP from GitHub or keep your local <code>socialmedia</code> folder.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h4>Open Extensions</h4>
+        <p>In Chrome or Brave, navigate to <code>chrome://extensions</code> in your address bar.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h4>Developer Mode</h4>
+        <p>Toggle the <strong>Developer mode</strong> switch in the top-right corner to ON.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h4>Load Unpacked</h4>
+        <p>Click <strong>Load unpacked</strong> and select this folder. StudySocial will appear in your toolbar!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    StudySocial – Empowering students to use social platforms for learning, communication, and growth.
+  </footer>
+</body>
+</html>
